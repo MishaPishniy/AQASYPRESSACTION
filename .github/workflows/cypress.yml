@@ -1,0 +1,21 @@
+name: Cypress CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  cypress-tests:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v7
+        with:
+          browser: chrome

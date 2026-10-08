@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.466" tests="1" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-10-01T16:23:29" tests="1" file="cypress\e2e\work\env-login.cy.js" time="0.463" failures="1">
+    <testcase name="Вхід на SauceDemo з даними запуску" time="0.000" classname="Вхід на SauceDemo з даними запуску">
+      <failure message="Передайте SAUCE_USER і SAUCE_PASSWORD під час запуску" type="Error"><![CDATA[Error: Передайте SAUCE_USER і SAUCE_PASSWORD під час запуску
+    at Context.eval (webpack://aqacypress/./cypress/e2e/work/env-login.cy.js:5:14)
+    at getRet (https://www.saucedemo.com/__cypress/runner/cypress_runner.js:120748:20)
+    at tryCatcher (https://www.saucedemo.com/__cypress/runner/cypress_runner.js:1780:23)
+    at Promise.attempt.Promise.try (https://www.saucedemo.com/__cypress/runner/cypress_runner.js:4288:29)
+    at Context.thenFn (https://www.saucedemo.com/__cypress/runner/cypress_runner.js:120759:66)
+    at Context.then (https://www.saucedemo.com/__cypress/runner/cypress_runner.js:121010:21)
+    at wrapped (https://www.saucedemo.com/__cypress/runner/cypress_runner.js:146066:19)
+    at <unknown> (https://www.saucedemo.com/__cypress/runner/cypress_runner.js:152143:15)
+    at tryCatcher (https://www.saucedemo.com/__cypress/runner/cypress_runner.js:1780:23)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
