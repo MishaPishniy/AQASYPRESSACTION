@@ -7,12 +7,12 @@ const {
 
 module.exports = defineConfig({
   projectId: 'eh5qf3',
-  reporter: "cypress-mochawesome-reporter",
+  reporter: "mochawesome",
   reporterOptions: {
-    charts: true,
-    reportPageTitle: "Cypress Test Report",
-    embeddedScreenshots: true,
-    inlineAssets: true,
+    reportDir: 'cypress/reports/mochawesome',
+    overwrite: false,
+    html: false,
+    json: true
   },
   env: {
     SAUCE_USER: process.env.SAUCE_USER,

@@ -16,10 +16,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
       - name: Run Cypress tests
         uses: cypress-io/github-action@v7
         with:
           browser: chrome
+        env:
+          SAUCE_USER: ${{ secrets.SAUCE_USER }}
+          SAUCE_PASSWORD: ${{ secrets.SAUCE_PASSWORD }}
+          # Plain mochawesome reports are merged by the next step.
+          DISABLE_CYPRESS_MOCHAWESOME_REPORTER: 'true'
+
+      - name: Generate HTML report
+        if: ${{ always() && hashFiles('cypress/reports/mochawesome/*.json') != '' }}
+        run: |
+          npm run report:merge
+          npm run report:html
 
       - name: Upload Cypress artifacts
         if: always()
@@ -27,7 +43,11 @@ jobs:
         with:
           name: cypress-results
           path: |
+            cypress/reports
             cypress/screenshots
+            cypress/snapshots/actual
+            cypress/snapshots/diff
             cypress/videos
+            merged-report.json
           if-no-files-found: ignore
           retention-days: 7

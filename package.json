@@ -6,7 +6,9 @@
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "cy:chrome": "cypress run --browser chrome"
+    "cy:chrome": "cypress run --browser chrome",
+    "report:merge": "mochawesome-merge \"cypress/reports/mochawesome/*.json\" > merged-report.json",
+    "report:html": "marge merged-report.json --reportDir cypress/reports/html"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +17,9 @@
   "devDependencies": {
     "cypress": "^16.1.0",
     "cypress-mochawesome-reporter": "^5.0.0",
-    "cypress-visual-regression": "^6.0.1"
+    "cypress-visual-regression": "^6.0.1",
+    "mochawesome": "^8.1.1",
+    "mochawesome-merge": "^5.1.1",
+    "mochawesome-report-generator": "^6.3.2"
   }
 }
