@@ -5,26 +5,26 @@ class LoginPage {
   errorMessage = '[data-test="error"]';
 
   visit() {
-    cy.visit("/");
+    return cy.visit("/");
   }
 
   enterUsername(username) {
-    cy.get(this.usernameInput).type(username);
+    return cy.get(this.usernameInput).typeSecret(username);
   }
 
   enterUserpassword(userpassword) {
-    cy.get(this.userpasswordInput).type(userpassword);
+    return cy.get(this.userpasswordInput).typeSecret(userpassword);
   }
 
   clickLoginButton() {
-    cy.get(this.loginButton).click();
+    return cy.get(this.loginButton).click();
   }
 
 
   login(username,userpassword){
     this.enterUsername(username)
     this.enterUserpassword(userpassword)
-    this.clickLoginButton()
+    return this.clickLoginButton()
   }
 
   errorMesagge(){

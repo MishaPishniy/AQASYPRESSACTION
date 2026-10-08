@@ -1,73 +1,48 @@
-# Cypress Project Instructions
+# Repository Guidelines
 
-This repository contains Cypress E2E tests.
+## Project Structure & Module Organization
 
-## Project
+This repository contains Cypress E2E, API, and visual regression tests, not application source code.
 
-Use the existing Cypress project structure.
+- `cypress/e2e/work/`: UI specs; `cypress/e2e/api/`: API specs.
+- `cypress/support/`: shared commands and setup; `cypress/pages/`: Page Objects; `cypress/fixtures/`: test data.
+- `cypress/snapshots/`: baseline, actual, and difference images; `cypress/reports/`: generated reports.
+- `docs/`: requirements, scenarios, selectors, test strategy, and definition of done.
+- `cypress.config.js`: default configuration; `cypress.staging.config.js`: alternate configuration.
+- `.github/workflows/cypress.yml`: Chrome CI for pushes and pull requests to `main`, plus manual runs.
 
-Before modifying tests, inspect:
+## Build, Test, and Development Commands
 
-- package.json
-- cypress.config.ts
-- cypress/support
-- existing specs in cypress/e2e
+Use Node.js 24 to match CI. No application build step is configured.
 
-## Test code
+- `npm ci`: install dependencies from `package-lock.json`.
+- `npm run cy:open`: open the interactive Cypress runner.
+- `npm run cy:run`: run specs headlessly.
+- `npm run cy:chrome`: run specs in Chrome.
+- `npm run cy:run -- --spec cypress/e2e/work/env-login.cy.js`: verify one spec.
+- `npm run report:merge`: merge Mochawesome JSON results.
+- `npm run report:html`: generate HTML from `merged-report.json`.
 
-Use the same language and style already used in the project.
+For manual reporting, set `DISABLE_CYPRESS_MOCHAWESOME_REPORTER=true` before running tests, matching CI; generate reports after JSON results exist.
 
-Reuse existing:
+## Coding Style & Naming Conventions
 
-- custom commands
-- fixtures
-- helpers
-- Page Objects
+Use JavaScript and two-space indentation. Match surrounding quote and semicolon conventions. Configuration uses CommonJS; specs and support files use imports. Name specs `<feature>.cy.js` and Page Objects `<Feature>Page.js`. No formatter or linter is configured.
 
-Do not duplicate functionality that already exists.
+Reuse existing commands, fixtures, helpers, and Page Objects. Prefer `data-cy`, `data-test`, or `data-testid` selectors over classes or DOM position.
 
-## Selectors
+## Testing Guidelines
 
-Prefer stable selectors such as:
+Before changing tests, inspect `package.json`, `cypress.config.js`, support files, and relevant specs. Before adding tests, inspect `examples/tests/` if present; current examples reside in `examples/test/`.
 
-- data-cy
-- data-test
-- data-testid
+Follow `docs/test-strategy.md` and `docs/test-definition-of-done.md`. Link tests to requirements and scenarios. Prefer API coverage for CRUD and validation; reserve UI tests for user-visible behavior. No numerical coverage threshold is configured.
 
-Avoid selectors based on CSS classes or DOM position when a stable
-test selector exists.
+Keep tests independent. Use meaningful assertions and request aliases with `cy.intercept()`; never add arbitrary waits such as `cy.wait(5000)`. Execute affected specs, report actual failures, and never weaken assertions to obtain a pass.
 
-## Waiting
+## Commit & Pull Request Guidelines
 
-Do not add arbitrary waits such as:
+Use short imperative commit subjects, consistent with history: `Add Cypress tests and GitHub Actions`. PRs should explain changes, link relevant requirements or issues, and record executed commands and results. Include screenshots or report artifacts for visual changes.
 
-cy.wait(5000)
+## Security & Configuration
 
-When waiting for an API request, prefer cy.intercept() and aliases.
-
-## Test isolation
-
-Tests should be independent.
-
-Do not make one test depend on another test.
-
-## Verification
-
-After modifying a Cypress spec, verify the affected spec.
-
-Do not claim that a test passed unless it was actually executed.
-
-If a test fails, report the real failure.
-
-Do not weaken assertions simply to make a test pass.
-
-## Security
-
-Do not hardcode passwords, tokens, API keys, or other secrets.
-
-
-## new Cypress test
-Before creating a new Cypress test,
-inspect the relevant examples in:
-
-examples/tests/
+Never hardcode credentials or tokens. Supply `SAUCE_USER` and `SAUCE_PASSWORD` through environment variables locally and GitHub Secrets in CI. Keep secrets out of fixtures, logs, and artifacts.
